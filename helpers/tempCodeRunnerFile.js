@@ -1,4 +1,7 @@
 
+
+
+//funcion para mostrar la cabecera en pantalla
 const inquiererMenu = async ()=>{
        
     // console.clear();

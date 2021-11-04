@@ -2,41 +2,22 @@ const { resolve } = require('path');
 
 require('colors')
 
-
-
-const mostrarMenu = ()=>{
-    return new Promise(resolve =>{
-
-    console.log(` ${'1.'.green} Crear tarea`)
-    console.log(` ${'2.'.green} Listar tareas`)
-    console.log(` ${'3.'.green} Listar tareas completadas`)
-    console.log(` ${'4.'.green} Listar tareas pendientes`)
-    console.log(` ${'5.'.green} Completar tareas`)
-    console.log(` ${'6.'.green} Borrar Tarea`)
-    console.log(` ${'0.'.green} Salir`)
-    
-    const readline = require('readline').createInterface({
-        input: process.stdin,
-        output: process.stdout
-});
-    readline.question("Selecciones una opcion: ", (opcion)=>{
-        readline.close();
-        resolve(opcion);
-});
-
-});
-    
-};
-
+//la funcion pausa hace que se espere una vez que el usuario ingresa un dato 
+//y cuando este aprete enter recien deja que continue el programa
 const pausa = ()=>{
     return new Promise(resolve=>{
+        //hacemos una constante que lea la linea
     const readline = require('readline').createInterface({
+        //ingresa datos el usuario
         input: process.stdin,
+        //termina el proceso
         output: process.stdout
 });
+        //usuarmos el quertion del inquire y mostramos un mensaje
         readline.question(`\n Presione ${'ENTER'.green} para continuar \n`, ()=>{
+        //lee la salida
         readline.close();
-    
+        //ejecuta el resolve
         resolve();
 });
     
@@ -44,9 +25,4 @@ const pausa = ()=>{
 };
 
 
-module.exports ={ 
-    mostrarMenu,
-    pausa
-
-
-}
+module.exports = pausa;

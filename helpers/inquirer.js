@@ -1,3 +1,7 @@
+//en este archivo estan todas las respuestas 
+//de lo que necesitamos
+
+
 const inquirer = require('inquirer');
 const { validate } = require('../node_modules/uuid/dist');
 
@@ -42,7 +46,8 @@ const preguntas = [
             ]
     }
 ]
-
+//el inquire menu muestra la cabecera del menu y muestra las preguntas,
+//este retorna la opcion elegida por el usuario
 const inquiererMenu = async ()=>{
        
     console.clear();
@@ -96,21 +101,27 @@ const pausa = async() =>{
     //returna la descripcion ingresada por el usuario
     return desc;
     }
-
+    //funcion que lista la seleccion de tareas para eliminar una
+    //pide las funciones como parametro
     const listadoTareasBorrar = async (tareas = []) =>{
-    
+        //itera las tareas y nos devuevlve la tarea y su indice
         const choices = tareas.map((tarea, i) =>{
+            //obtenemos el indice y le sumamos 1
             const idx = `${i+1}`.green
+            //el .map retorna el id de la tarea como valor
+            //t en el name el indice y la descritcion
             return {
                 value: tarea.id,
                 name: `${idx} ${tarea.desc}`
             }
             
 });
+        //con esto agregamos a las choices que aparezca en el menu en esta funcion el 0
         choices.unshift({
             value: '0',
             name: '0'.green +' Cancelar'
         })
+        // usamos el prompt para mostrar un mensaje que dica borrar
         const preguntas = [{
             type: 'list',
             name: 'id',
@@ -122,8 +133,9 @@ const pausa = async() =>{
 
         return id;
 }
+//confirmamos la opcion del usuario
 const confirmar = async(message)=>{
-
+    //usamos el question del inquirer
     const question =[
     {
         type: 'confirm',
@@ -132,21 +144,23 @@ const confirmar = async(message)=>{
     }
 ];
 const {ok} = await inquirer.prompt(question);
-
+    //retprnamos el ok true o false
 return ok;
 }
-
+//mostramos las opciones en formato checklist para decir que tareas hemos completado
 const mostrarListadoCheckList = async (tareas = []) =>{
-
+    //recorremos las tareas
     const choices = tareas.map((tarea, i) =>{
         const idx = `${i+1}`.green
-        
+        //returna la tareaID, el indice y descripcion
         return {
             value: tarea.id,
             name: `${idx} ${tarea.desc}`,
+            //en el caso de que tenga un valor de true o false
+            // mostrara el check o no
             check: (tarea.completadoEn) ? true : false
         }});
-
+        //usamos el prompt pasandole los parametros
         const pregunta= [{
             type: 'checkbox',
             name: 'ids',
@@ -155,7 +169,7 @@ const mostrarListadoCheckList = async (tareas = []) =>{
         }];
 
         const {ids} = await inquirer.prompt(pregunta)
-
+        //retorna el id de la opcion elegida asi queda confirmada o no
         return ids;
         
 };
